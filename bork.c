@@ -1,58 +1,53 @@
-#include <stdio.h>
+/*
+ * bork.c
+ *
+ * Holds the main code for BORK a game so good you cant stop playing.
+ *
+ * Colin J. Mills and Greg Ward
+ *
+ * 2015/07/30
+ */
+
+#include "bork.h"
+#include <pwd.h> // getpwuid()
+#include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
+#include <sys/types.h> // (struct password) 
 #include <unistd.h>
 
-typedef struct player_t {
-    char* name;
-    char* class;
-    char* race;
-} Player;
+/*
+ * initLog(FILE**)
+ *
+ * Inits the log file at $HOME/.bork_dir for use in the rest of the program
+ *
+ * FILE** logFileHandle: The log file handle that we are building
+ *
+ * void
+ */
+void initLog(FILE** logFileHandle)
+{
+        /* Variable Definition */
+        char* borkPath = NULL; // THe path for where we are making the directory and creating the configuration
+
+        /* Logic */
+
+        /* Allocate space for the bork path */
+        borkPath = (char*)allocateBlock(BLOCK_SIZE);
+
+        /* Build the bork directory from the home directory and the bork path and the home directory */
+        buildBorkDirPath(&borkPath);
+
+}
+
 
 int main(int argc, char** argv)
 {
+   /* Variable Definition */
    FILE* logFile = NULL; //log file for game cmd's
-   int mkdirRet = 0;
-   const char* borkDir = "~/.bork";
 
-   // Logic //
-
-   if ((mkdir(borkDir, 777) == -1))
-   {
-        fprintf(stderr, "There was an error in creating directory %s\n", borkDir);
-        exit(0);
-   }
-   else
-   {
-        if (chdir(borkDir) == -1) 
-        {
-            fprintf(stderr, "There was an error in changing to %s\n", borkDir);
-            exit(0);
-        }
-        else
-        {
-            logfile = fopen(".log.txt", w+);
-            
-            if ( logfile == NULL)
-            {
-                perror("Cannot open logfile. Will not write to logfile. Makes sense? Don't get your nuts in a grind, game will still play.");
-            }
-            
-            getCharDetails();
-            initGame();
-        }
-        
-        
-   }
-   
-   
-	
-   
-   
-
-   
-   return errorLevel;	
+   /* Logic */
+   initLog(&logFile);
 
 }
 
