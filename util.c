@@ -48,7 +48,7 @@ void* allocateBlock(size_t blockSize)
 }
 
 
-void buildBorkDirectory(char** pathBuffer)
+void buildBorkDirPath(char** pathBuffer)
 {
     /* Variable Definition */
     int usersUID = 0;                       // The current users UID
