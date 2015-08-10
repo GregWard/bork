@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <malloc.h>
 #include <unistd.h>
 
@@ -30,7 +31,8 @@
  * Returns a void pointer. Make sure you cast the return type.
  */
 
-void* allocateBlock(size_t blockSize)
+void* 
+allocateBlock(size_t blockSize)
 {
     /* Variable Definition */
     void* block = NULL;
@@ -48,7 +50,8 @@ void* allocateBlock(size_t blockSize)
 }
 
 
-void buildBorkDirPath(char** pathBuffer)
+void 
+buildBorkDirPath(char** pathBuffer)
 {
     /* Variable Definition */
     int usersUID = 0;                       // The current users UID
@@ -76,6 +79,25 @@ void buildBorkDirPath(char** pathBuffer)
     strncat(*pathBuffer, homeDirectory, BLOCK_SIZE);
 
     sprintf(*pathBuffer, "%s/%s", homeDirectory, BORK_DIR);
+}
+
+
+void 
+makeBorkDirectory(char* path)
+{
+    /* Variable Definition */
+    const int MKDIR_FAIL            = -1;  // The error code for mkdir(3)
+    const int DIRECTORY_PERMISSIONS = (S_IRWXU | S_IRWXG); // The directory permissions for the directory
+    int mkdirRet = 0;                     // The return status from make directory.
+
+
+    /* Logic */
+    mkdirRet = mkdir(path, DIRECTORY_PERMISSIONS);
+
+    if (mkdirRet == MKDIR_FAIL)
+    {
+        errx(MKDIR_FAIL, "There was an error in creating %s\n", path);
+    }
 }
 
 
