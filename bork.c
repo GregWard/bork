@@ -3,16 +3,17 @@
  *
  * Holds the main code for BORK a game so good you cant stop playing.
  *
- * Colin J. Mills and Greg Ward
- *
+ * Colin J. Mills and Greg Ward *
  * 2015/07/30
  */
 
 #include "bork.h"
+#include <err.h> // errx(3)
 #include <pwd.h> // getpwuid()
 #include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>  // mkdir()
 #include <sys/types.h> // (struct password) 
 #include <unistd.h>
 
@@ -25,28 +26,39 @@
  *
  * void
  */
-void initLog(FILE** logFileHandle)
+void 
+initLog(FILE** logFileHandle)
 {
         /* Variable Definition */
-        char* borkPath = NULL; // THe path for where we are making the directory and creating the configuration
+        char* borkDirPath  = NULL; // The path for where we are making the directory and creating the configuration
+
 
         /* Logic */
 
         /* Allocate space for the bork path */
-        borkPath = (char*)allocateBlock(BLOCK_SIZE);
+        borkDirPath  = (char*)allocateBlock(BLOCK_SIZE);
 
         /* Build the bork directory from the home directory and the bork path and the home directory */
-        buildBorkDirPath(&borkPath);
+        buildBorkDirPath(&borkDirPath);
 
+        /* Make the actual bork directory */
+        makeBorkDirectory(borkDirPath);
+
+        chdir(borkDirPath);
+
+        *logFileHandle = fopen("log.bork", "w");
 }
 
 
-int main(int argc, char** argv)
+int 
+main(int argc, char** argv)
 {
    /* Variable Definition */
    FILE* logFile = NULL; //log file for game cmd's
 
    /* Logic */
+   logFile = (FILE*)allocateBlock(BLOCK_SIZE);
+
    initLog(&logFile);
 
 }
