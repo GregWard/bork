@@ -6,7 +6,6 @@
  * Colin J. Mills and Greg Ward *
  * 2015/07/30
  */
-
 #include "bork.h"
 #include <err.h> // errx(3)
 #include <pwd.h> // getpwuid()
@@ -32,7 +31,6 @@ initLog(FILE** logFileHandle)
         /* Variable Definition */
         char* borkDirPath  = NULL; // The path for where we are making the directory and creating the configuration
 
-
         /* Logic */
 
         /* Allocate space for the bork path */
@@ -46,7 +44,7 @@ initLog(FILE** logFileHandle)
 
         chdir(borkDirPath);
 
-        *logFileHandle = fopen("log.bork", "w");
+        *logFileHandle = fopen(BORK_FILE, "w");
 }
 
 
@@ -54,12 +52,14 @@ int
 main(int argc, char** argv)
 {
    /* Variable Definition */
-   FILE* logFile = NULL; //log file for game cmd's
+   FILE* logFile = NULL;    //log file for game cmd's
+   struct character player; // The main player 
 
    /* Logic */
    logFile = (FILE*)allocateBlock(BLOCK_SIZE);
-
    initLog(&logFile);
+   initCharacter(&player);
 
+   printf("%d\n", player.health);
 }
 
