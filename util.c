@@ -93,7 +93,6 @@ makeBorkDirectory(char* path)
 
     /* Logic */
     mkdirRet = mkdir(path, DIRECTORY_PERMISSIONS);
-
     if (mkdirRet == MKDIR_FAIL)
     {
         errx(MKDIR_FAIL, "There was an error in creating %s\n", path);
