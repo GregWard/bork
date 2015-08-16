@@ -22,7 +22,7 @@
 /* Global Constants */
 #define            true   0  // Truthy values are 0
 #define            false -1  // Falsy values are  -1
-#define BLOCK_SIZE 81        // The block size is a kilobyte.
+#define BLOCK_SIZE 81        // The block size is a kilobyte - 943 bytes.
 #define BORK_DIR ".bork"     // The directory that bork uses for configuration.
 #define BORK_FILE "log.bork" // The filename of the log file.
 
